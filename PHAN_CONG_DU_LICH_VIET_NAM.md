@@ -52,6 +52,11 @@ Thông tin biến động như giá vé, giờ mở cửa hoặc lịch hoạt �
 
 ### Cường — index và hai nhánh tìm kiếm
 
+**Bàn giao triển khai:** [Hướng dẫn Task 4–6](docs/BAN_GIAO_CUONG.md),
+[báo cáo phần việc](reports/CUONG.md), [kiểm thử](tests/test_index_search.py).
+Kết quả kiểm chứng và giới hạn được ghi trong tài liệu bàn giao; chưa đánh dấu
+nghiệm thu chung cho các phần của thành viên khác.
+
 1. Hoàn thiện `load_documents()`, `chunk_documents()`, `embed_texts()`, `embed_chunks()`, `get_collection()`, `index_to_vectorstore()`.
 2. Tạo ID chunk ổn định, giữ metadata nguồn và `chunk_index`; upsert lại không tạo bản ghi trùng.
 3. Hoàn thiện `semantic_search()`, `build_bm25_index()` và `lexical_search()` trên cùng tập chunks và cùng ID.

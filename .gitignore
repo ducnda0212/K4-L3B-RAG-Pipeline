@@ -44,6 +44,7 @@ htmlcov/
 data/_tmp_pdf/
 
 # Temp / cache
+chroma_db/
 .pytest_cache/
 *.tmp
 *.log

@@ -1,0 +1,26 @@
+[
+  {
+    "question": "Theo tài liệu, Động Âm Phủ nằm ở đâu trên Thủy Sơn?",
+    "expected_answer": "Động Âm Phủ nằm ở phía nam Thủy Sơn, dưới chân núi.",
+    "expected_context": "Động Âm Phủ nằm ở phía nam Thủy Sơn, dưới chân núi.",
+    "source": "da-nang-ngu-hanh-son.md"
+  },
+  {
+    "question": "Bài viết ghi Hòn Thủy Sơn có bao nhiêu hang động và chùa-tháp?",
+    "expected_answer": "Hòn Thủy Sơn có 9 hang động và 5 chùa-tháp.",
+    "expected_context": "Hòn Thủy Sơn gồm có 09 hang động, 5 chùa- tháp, Vọng giang đài và Vọng hải đài.",
+    "source": "da-nang-ngu-hanh-son.md"
+  },
+  {
+    "question": "Hai ngọn núi nào hợp thành Hỏa Sơn trong quần thể Ngũ Hành Sơn?",
+    "expected_answer": "Dương Hỏa Sơn và Âm Hỏa Sơn.",
+    "expected_context": "Ngũ Hành Sơn là quần thể gồm có 6 ngọn núi: Thủy Sơn, Kim Sơn, Hỏa Sơn (gồm có Dương Hỏa Sơn và Âm Hỏa Sơn), Thổ Sơn, Mộc Sơn.",
+    "source": "da-nang-ngu-hanh-son.md"
+  },
+  {
+    "question": "Theo bài viết, phía tây danh thắng Ngũ Hành Sơn giáp sông nào?",
+    "expected_answer": "Phía tây giáp sông Cổ Cò.",
+    "expected_context": "Phía Tây giáp sông Cổ Cò;",
+    "source": "da-nang-ngu-hanh-son.md"
+  }
+]
