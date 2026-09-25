@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 st.set_page_config(
-    page_title="RAG Chatbot",
-    page_icon="",
+    page_title="Du lịch Việt Nam",
+    page_icon="🧭",
     layout="wide",
 )
 
@@ -14,17 +14,35 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 with st.sidebar:
-    st.title("RAG Chatbot")
-    st.caption("Thay mô tả theo đề tài của nhóm")
+    st.title("Trợ lý Du lịch Việt Nam.")
+    st.caption("Hỏi về Huế, Đà Nẵng và Hội An.")
     top_k = st.slider("Số chunks", 3, 10, 5)
 
-st.title("RAG Chatbot")
-st.caption("Thay tiêu đề và hướng dẫn sử dụng")
+st.title("🧭 Trợ lý Du lịch Việt Nam.")
+st.caption("Hỏi về Huế, Đà Nẵng và Hội An.")
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
-        # TODO: Hiển thị sources và retrieval score.
+        if message["role"] == "assistant" and message.get("sources"):
+            with st.expander("Nguồn tham khảo"):
+                st.caption(f"Phương thức: {message['retrieval_source']}")
+
+                for source in message["sources"]:
+                    metadata = source["metadata"]
+                    st.markdown(
+                        f"**{metadata.get('title', 'Không rõ tiêu đề')}**"
+                    )
+                    st.caption(
+                        f"chunk:{source['id']} · "
+                        f"{source.get('retrieval_method', '')} · "
+                        f"score: {source.get('score', '')}"
+                    )
+
+                    if metadata.get("url"):
+                        st.markdown(f"[Mở nguồn]({metadata['url']})")
+
+                    st.write(source["content"])
 
 query = st.chat_input("Nhập câu hỏi...")
 
@@ -35,11 +53,45 @@ if query:
         st.markdown(query)
 
     with st.chat_message("assistant"):
-        # TODO: Gọi generate_with_citation(query, top_k).
-        answer = "TODO: Itegration RAG Pipeline hêre"
-        sources = []
+        with st.spinner("Đang tìm nguồn..."):
+            try:
+                from src.task10_generation import generate_with_citation
+                result = generate_with_citation(query, top_k=top_k)
+                answer = result["answer"]
+                sources = result["sources"]
+                retrieval_source = result["retrieval_source"]
+            except Exception as error:
+                answer = "Pipeline chưa chạy được. Hãy kiểm tra cấu hình và các Task trước."
+                sources = []
+                retrieval_source = "none"
+                st.caption(str(error))
+
         st.markdown(answer)
 
-        # TODO: Hiển thị sources và citation.
+        assistant_message = {
+            "role": "assistant",
+            "content": answer,
+            "sources": sources,
+            "retrieval_source": retrieval_source,
+        }
+        st.session_state.messages.append(assistant_message)
 
-    # TODO: Lưu answer và sources vào session state.
+        if sources:
+            with st.expander("Nguồn tham khảo"):
+                st.caption(f"Phương thức: {retrieval_source}")
+
+                for source in sources:
+                    metadata = source["metadata"]
+                    st.markdown(
+                        f"**{metadata.get('title', 'Không rõ tiêu đề')}**"
+                    )
+                    st.caption(
+                        f"chunk:{source['id']} · "
+                        f"{source.get('retrieval_method', '')} · "
+                        f"score: {source.get('score', '')}"
+                    )
+
+                    if metadata.get("url"):
+                        st.markdown(f"[Mở nguồn]({metadata['url']})")
+
+                    st.write(source["content"])
