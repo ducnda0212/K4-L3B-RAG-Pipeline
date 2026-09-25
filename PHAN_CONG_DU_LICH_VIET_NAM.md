@@ -1,6 +1,6 @@
 # Phân công nhóm — Chatbot RAG Du lịch Việt Nam
 
-Thành viên: **Vinh, Cường, Hình, Đức**.
+Thành viên: **Vinh, Cường, Hinh, Đức**.
 
 ## 1. Đề tài và phạm vi
 
@@ -34,9 +34,9 @@ Thông tin biến động như giá vé, giờ mở cửa hoặc lịch hoạt �
 
 | Thành viên | Vai trò | File phụ trách | Đầu ra bàn giao |
 | --- | --- | --- | --- |
-| **Vinh** | Thu thập, chuẩn hóa dữ liệu; quản lý golden dataset và báo cáo kết quả | `src/task1_collect_legal_docs.py`, `src/task2_crawl_news.py`, `src/task3_convert_markdown.py`; `data/`; `group_project/evaluation/golden_dataset.json`, `group_project/evaluation/RESULT.md` | Corpus có nguồn rõ ràng, Markdown và metadata; bộ câu hỏi có đáp án/bằng chứng; báo cáo dựa trên số liệu Hình chạy |
+| **Vinh** | Thu thập, chuẩn hóa dữ liệu; quản lý golden dataset và báo cáo kết quả | `src/task1_collect_legal_docs.py`, `src/task2_crawl_news.py`, `src/task3_convert_markdown.py`; `data/`; `group_project/evaluation/golden_dataset.json`, `group_project/evaluation/RESULT.md` | Corpus có nguồn rõ ràng, Markdown và metadata; bộ câu hỏi có đáp án/bằng chứng; báo cáo dựa trên số liệu Hinh chạy |
 | **Cường** | Chunking, embedding, ChromaDB, dense search và BM25 | `src/task4_chunking_indexing.py`, `src/task5_semantic_search.py`, `src/task6_lexical_search.py`; đầu mối `pyproject.toml`, `.env.example` | Corpus chunks dùng chung, index bền vững, hai hàm tìm kiếm đúng `SearchResult`, môi trường chạy thống nhất |
-| **Hình** | RRF, PageIndex fallback, retrieval pipeline và chương trình đánh giá | `src/task7_reranking.py`, `src/task8_pageindex_vectorless.py`, `src/task9_retrieval_pipeline.py`; đề xuất tạo mới `scripts/evaluate.py` | `retrieve()` hoạt động; ngưỡng fallback có bằng chứng hiệu chỉnh; số liệu 4 metrics cho A/B và các câu trả lời truy xuất được |
+| **Hinh** | RRF, PageIndex fallback, retrieval pipeline và chương trình đánh giá | `src/task7_reranking.py`, `src/task8_pageindex_vectorless.py`, `src/task9_retrieval_pipeline.py`; đề xuất tạo mới `scripts/evaluate.py` | `retrieve()` hoạt động; ngưỡng fallback có bằng chứng hiệu chỉnh; số liệu 4 metrics cho A/B và các câu trả lời truy xuất được |
 | **Đức** | Generation có citation, giao diện Streamlit, tích hợp và demo | `src/task10_generation.py`, `app.py`, `README.md` | Chatbot end-to-end, câu trả lời có nguồn, xử lý thiếu bằng chứng/lỗi provider; README chạy lại được và kịch bản demo |
 
 ### Vinh — dữ liệu và bằng chứng
@@ -46,7 +46,7 @@ Thông tin biến động như giá vé, giờ mở cửa hoặc lịch hoạt �
 3. Hoàn thiện tải tài liệu, crawl bài viết và chuyển Markdown; loại nội dung điều hướng không liên quan, giữ tiêu đề và nguồn.
 4. Bàn giao sớm 1 tài liệu chính sách và 1 bài viết đã chuẩn hóa để Cường chạy thử. Chốt cách lưu metadata cùng Cường trước khi làm hàng loạt.
 5. Tổng hợp 16 golden Q&A từ đóng góp của cả nhóm; kiểm tra đáp án và đoạn bằng chứng thực sự tồn tại trong corpus.
-6. Điền báo cáo nhóm từ kết quả evaluation của Hình và phân tích lỗi của từng người.
+6. Điền báo cáo nhóm từ kết quả evaluation của Hinh và phân tích lỗi của từng người.
 
 **Nghiệm thu:** `data/landing/legal/` có ≥3 PDF/DOC/DOCX, mỗi file >1.024 byte; `data/landing/news/` có ≥5 JSON chứa `url`, `title`, `date_crawled`, `content_markdown`. `data/standardized/legal/` và `data/standardized/news/` có tương ứng ≥3 và ≥5 Markdown, mỗi file ≥200 ký tự. Nội dung phải có giá trị sử dụng, không chỉ đủ kích thước.
 
@@ -62,11 +62,11 @@ nghiệm thu chung cho các phần của thành viên khác.
 3. Hoàn thiện `semantic_search()`, `build_bm25_index()` và `lexical_search()` trên cùng tập chunks và cùng ID.
 4. Dùng chung hàm embedding, model và dimension giữa index và query. Ghi nhận lựa chọn chunk size/overlap và embedding trong báo cáo.
 5. Chốt provider/dependencies cho nhóm. Nếu dùng `sentence_transformers` theo `.env.example`, kiểm tra và bổ sung dependency phù hợp vì `pyproject.toml` hiện chưa khai báo trực tiếp thư viện này.
-6. Bàn giao hai hàm search và cách nạp lại corpus/index cho Hình; không để BM25 phụ thuộc vào biến `CORPUS` rỗng sau khi khởi động lại.
+6. Bàn giao hai hàm search và cách nạp lại corpus/index cho Hinh; không để BM25 phụ thuộc vào biến `CORPUS` rỗng sau khi khởi động lại.
 
 **Nghiệm thu:** tìm theo ngữ nghĩa và từ khóa/tên riêng đều trả đúng schema; kết quả không trùng ID, giảm dần theo score, không vượt `top_k`; index chạy lại không tăng số chunk do trùng dữ liệu.
 
-### Hình — retrieval hoàn chỉnh và evaluation
+### Hinh — retrieval hoàn chỉnh và evaluation
 
 1. Hoàn thiện `rerank_rrf()` với công thức `sum(1 / (k + rank))`, rank bắt đầu từ 1; gộp theo ID và chỉ fuse một lần.
 2. Hoàn thiện `upload_documents()` và `pageindex_search()`; kết quả fallback có `retrieval_method="pageindex"`.
@@ -90,15 +90,15 @@ nghiệm thu chung cho các phần của thành viên khác.
 
 ## 4. Quy ước phối hợp
 
-Luồng bàn giao: **Vinh → Cường → Hình → Đức**. Vinh nhận lại số liệu từ Hình để hoàn thiện báo cáo. Khi đang chờ đầu vào, mỗi người dùng fixture đúng contract để phát triển phần mình; tích hợp cuối phải chạy trên corpus thật.
+Luồng bàn giao: **Vinh → Cường → Hinh → Đức**. Vinh nhận lại số liệu từ Hinh để hoàn thiện báo cáo. Khi đang chờ đầu vào, mỗi người dùng fixture đúng contract để phát triển phần mình; tích hợp cuối phải chạy trên corpus thật.
 
 | Điểm bàn giao | Nội dung thống nhất |
 | --- | --- |
 | Vinh → Cường | Markdown và metadata `source`, `title`, `doc_type`, `url`; thống nhất cách lưu/đọc metadata. Giữ `doc_type` là `legal` hoặc `news` theo contract hiện tại. |
-| Cường → Hình | `semantic_search(query, top_k)` và `lexical_search(query, top_k)` trả `list[SearchResult]`; cùng corpus, ID và nguồn. |
-| Hình → Đức | `retrieve(query, top_k, score_threshold, use_reranking)` trả danh sách kết quả hybrid/pageindex hoặc rỗng. |
+| Cường → Hinh | `semantic_search(query, top_k)` và `lexical_search(query, top_k)` trả `list[SearchResult]`; cùng corpus, ID và nguồn. |
+| Hinh → Đức | `retrieve(query, top_k, score_threshold, use_reranking)` trả danh sách kết quả hybrid/pageindex hoặc rỗng. |
 | Đức → UI | `generate_with_citation(query, top_k)` trả `answer`, `sources`, `retrieval_source`; giá trị `retrieval_source` thuộc `hybrid`, `pageindex`, `none`. |
-| Hình → Vinh | Cấu hình chạy, câu trả lời/context từng câu, 4 metrics cho A/B, lỗi và số liệu thực tế để viết `RESULT.md`. |
+| Hinh → Vinh | Cấu hình chạy, câu trả lời/context từng câu, 4 metrics cho A/B, lỗi và số liệu thực tế để viết `RESULT.md`. |
 
 - Giữ interface trong [MODULE_CONTRACTS.md](MODULE_CONTRACTS.md); muốn đổi schema phải thống nhất với người nhận đầu ra trước.
 - Mỗi người làm trên nhánh riêng, gợi ý: `feat/vinh-data`, `feat/cuong-index-search`, `feat/hinh-retrieval-eval`, `feat/duc-generation-ui`.
@@ -112,7 +112,7 @@ Luồng bàn giao: **Vinh → Cường → Hình → Đức**. Vinh nhận lại
 
 - Vinh: 4 câu về chính sách/nội quy có trong tài liệu.
 - Cường: 4 câu về tên điểm đến, địa danh và thông tin cụ thể.
-- Hình: 4 câu diễn đạt lại hoặc cần kết hợp nhiều đoạn nguồn.
+- Hinh: 4 câu diễn đạt lại hoặc cần kết hợp nhiều đoạn nguồn.
 - Đức: 4 câu về trải nghiệm/ẩm thực/gợi ý tham quan, có câu trả lời tham chiếu dựa trên corpus.
 
 Mỗi phần tử phải có `question`, `expected_answer`, `expected_context`; đáp án và context không để rỗng. Chuẩn bị thêm ít nhất 3 tình huống ngoài phạm vi hoặc thiếu bằng chứng để thử fallback/từ chối, tách khỏi 16 câu có bằng chứng. Hiệu chỉnh threshold trước khi chạy đánh giá cuối; không sửa đáp án chuẩn để khớp câu trả lời của mô hình.
@@ -133,12 +133,12 @@ Mỗi phần tử phải có `question`, `expected_answer`, `expected_context`; 
 
 | Thời gian | Mốc chung | Việc có thể làm song song |
 | --- | --- | --- |
-| 0–10 phút | Chốt phạm vi, schema và môi trường | Vinh chọn nguồn; Cường kiểm tra dependency/embedding; Hình đọc contract và chuẩn bị fixture; Đức dựng UI và cấu hình LLM. |
-| 10–35 phút | Có ≥3 tài liệu, ≥5 bài và Markdown | Vinh bàn giao mẫu sớm; Cường viết index/search; Hình viết RRF/fallback; Đức viết generation/UI bằng fixture. |
-| 35–65 phút | Index, dense và BM25 chạy được | Cường bàn giao hai hàm search; Vinh tổng hợp golden Q&A; Hình nối retrieval; Đức kiểm tra citation. |
-| 65–90 phút | RRF và fallback chạy đầy đủ | Hình hiệu chỉnh threshold; Cường xử lý lỗi search; Vinh rà nguồn; Đức nối retrieval thật. |
-| 90–120 phút | Chatbot end-to-end có citation | Đức chủ trì tích hợp; Hình hoàn thiện runner; Vinh chốt 16 Q&A; Cường kiểm tra khả năng chạy lại index. |
-| 120–150 phút | Có 4 metrics và A/B | Hình chạy evaluation; Vinh điền báo cáo; Cường và Đức phân tích, sửa lỗi phần mình khi cần. |
+| 0–10 phút | Chốt phạm vi, schema và môi trường | Vinh chọn nguồn; Cường kiểm tra dependency/embedding; Hinh đọc contract và chuẩn bị fixture; Đức dựng UI và cấu hình LLM. |
+| 10–35 phút | Có ≥3 tài liệu, ≥5 bài và Markdown | Vinh bàn giao mẫu sớm; Cường viết index/search; Hinh viết RRF/fallback; Đức viết generation/UI bằng fixture. |
+| 35–65 phút | Index, dense và BM25 chạy được | Cường bàn giao hai hàm search; Vinh tổng hợp golden Q&A; Hinh nối retrieval; Đức kiểm tra citation. |
+| 65–90 phút | RRF và fallback chạy đầy đủ | Hinh hiệu chỉnh threshold; Cường xử lý lỗi search; Vinh rà nguồn; Đức nối retrieval thật. |
+| 90–120 phút | Chatbot end-to-end có citation | Đức chủ trì tích hợp; Hinh hoàn thiện runner; Vinh chốt 16 Q&A; Cường kiểm tra khả năng chạy lại index. |
+| 120–150 phút | Có 4 metrics và A/B | Hinh chạy evaluation; Vinh điền báo cáo; Cường và Đức phân tích, sửa lỗi phần mình khi cần. |
 | 150–180 phút | Kiểm tra, báo cáo cá nhân và demo | Cả nhóm kiểm tra bản cuối, ghi giới hạn còn lại; Đức hướng dẫn chạy/demo; từng người hoàn thiện báo cáo cá nhân. |
 
 Nếu thay đổi corpus hoặc logic sau khi đo, phải cập nhật dữ liệu liên quan và chạy lại phép đánh giá bị ảnh hưởng trước khi chốt số liệu.
