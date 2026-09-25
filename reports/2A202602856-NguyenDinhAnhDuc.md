@@ -28,8 +28,8 @@ Mô tả tối đa hai quyết định mà bạn trực tiếp tham gia:
 
 ## Kiểm thử và kết quả
 
-- Test hoặc query tôi đã dùng:
-- Kết quả trước/sau nếu có:
+- Test hoặc query tôi đã dùng: Quần thể Ngũ Hành Sơn gồm những ngọn núi nào?
+- Kết quả trước/sau nếu có: Quần thể Ngũ Hành Sơn gồm có 6 ngọn núi: Thủy Sơn, Kim Sơn, Hỏa Sơn (gồm Dương Hỏa Sơn và Âm Hỏa Sơn), Thổ Sơn, Mộc Sơn [chunk:1].
 - Lỗi đã phát hiện và cách xử lý:
 
 ## Điều còn hạn chế
